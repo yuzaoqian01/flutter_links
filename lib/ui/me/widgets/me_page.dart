@@ -14,7 +14,7 @@ class _MePageState extends State<MePage> {
       appBar: AppBar(
         title: const Text('Me Page'),
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'This is the Me Page'
         ),

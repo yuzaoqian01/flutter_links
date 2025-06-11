@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:web3_links/utils/logger.dart';
 import 'package:web3_links/core/theme/theme.dart';
 import 'package:web3_links/routers/routes.dart';
-import 'package:web3_links/ui/home/viewmodels/wallet_view_model.dart';
+import 'package:web3_links/ui/home/view_models/wallet_view_model.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async {

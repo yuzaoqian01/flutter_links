@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:web3_links/ui/home/widgets/home_page.dart';
 import 'package:web3_links/ui/me/widgets/me_page.dart';
 import 'package:web3_links/ui/login/widgets/login.dart';
+import 'package:web3_links/ui/me/widgets/user_profile.dart';
 
 // 路由
 final GoRouter _router = GoRouter(
   initialLocation: '/home',
-  redirect: (context, state) {
+  // redirect: (context, state) {
     
-  },
+  // },
   routes: [
     GoRoute(
       path: '/login',
@@ -28,7 +29,7 @@ final GoRouter _router = GoRouter(
             GoRoute(
               name: 'home',
               path: '/home',
-              builder: (context, state) => HomePage(),
+              builder: (context, state) => const HomePage(),
             ),
           ]
         ),
@@ -37,8 +38,13 @@ final GoRouter _router = GoRouter(
              GoRoute(
               name: 'me',
               path: '/me',
-              builder: (context, state) => MePage(),
+              builder: (context, state) => const MePage(),
               routes: [
+                GoRoute(
+                  name: 'profile',
+                  path: 'profile',
+                  builder: (context, state) => const UserProfile(),
+                )
               ]
             ),
           ]

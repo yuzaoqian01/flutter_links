@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
-import 'package:web3dart/web3dart.dart';
+// import 'package:web3dart/web3dart.dart';
 import 'package:web3_links/data/models/wallet_info.dart';
 
 class WalletViewModel extends ChangeNotifier {
-  WalletInfo _walletInfo = WalletInfo.empty();
+  final WalletInfo _walletInfo = WalletInfo.empty();
   bool _isLoading = false;
   String? _error;
 
@@ -17,7 +17,6 @@ class WalletViewModel extends ChangeNotifier {
       _error = null;
       notifyListeners();
 
-      // TODO: 实现钱包连接逻辑
       // 这里需要实现具体的钱包连接逻辑，比如使用web3dart连接MetaMask等
 
       _isLoading = false;
@@ -34,7 +33,6 @@ class WalletViewModel extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      // TODO: 实现余额刷新逻辑
       // 使用web3dart获取当前钱包余额
 
       _isLoading = false;
