@@ -8,7 +8,7 @@ import 'package:web3_links/ui/me/widgets/user_profile.dart';
 
 // 路由
 final GoRouter _router = GoRouter(
-  initialLocation: '/home',
+  initialLocation: '/login',
   // redirect: (context, state) {
     
   // },
