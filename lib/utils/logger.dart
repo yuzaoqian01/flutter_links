@@ -10,7 +10,7 @@ class AppLogger {
     // 添加日志输出处理器
     Logger.root.onRecord.listen((record) {
       // ignore: avoid_print
-      print('${record.level.name}: ${record.time}: ${record.message}');
+      // print('${record.level.name}: ${record.time}: ${record.message}');
     });
   }
 

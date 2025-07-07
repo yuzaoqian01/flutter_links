@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'package:web3_links/ui/login/view_models/login_model.dart';
@@ -15,9 +16,14 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final loginViewModel = context.watch<LoginViewModel>();
@@ -123,6 +129,43 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              // 错误信息显示
+              if (loginViewModel.errorMessage.isNotEmpty) ...[
+                const SizedBox(height: 16),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    border: Border.all(color: Colors.red.shade200),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.error_outline, color: Colors.red.shade600, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          loginViewModel.errorMessage,
+                          style: TextStyle(
+                            color: Colors.red.shade700,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close, color: Colors.red.shade600, size: 20),
+                        onPressed: loginViewModel.clearError,
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(
+                          minWidth: 24,
+                          minHeight: 24,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
               const SizedBox(height: 24),
               FractionallySizedBox(
                 widthFactor: 0.8,
@@ -134,10 +177,23 @@ class LoginScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(40), // 设置圆角
                     ),
                   ),
-                  onPressed: () {
-                    loginViewModel.login();
+                  onPressed: loginViewModel.isLoading ? null : () async {
+                    final success = await loginViewModel.login();
+                    // 检查context是否仍然挂载，避免在异步操作后使用已销毁的context
+                    if (context.mounted && success) {
+                      context.go('/home');
+                    }
                   },
-                  child: const Text('登陆')
+                  child: loginViewModel.isLoading 
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : const Text('登录')
                 ),
               )
             ],

@@ -15,25 +15,26 @@ class AppStorage {
   static String? getString(String key) => _prefs?.getString(key);
 
   // 写入字符串
-  static Future<void> setString(String key, String value) async {
-    await _prefs?.setString(key, value);
+  static Future<bool> setString(String key, String? value) async {
+    if (value == null) return false;
+    return await _prefs?.setString(key, value) ?? false;
   }
 
   // 读取布尔值
   static bool getBool(String key) => _prefs?.getBool(key) ?? false;
 
   // 写入布尔值
-  static Future<void> setBool(String key, bool value) async {
-    await _prefs?.setBool(key, value);
+  static Future<bool> setBool(String key, bool value) async {
+    return await _prefs?.setBool(key, value) ?? false;
   }
 
   // 删除键值
-  static Future<void> remove(String key) async {
-    await _prefs?.remove(key);
+  static Future<bool> remove(String key) async {
+    return await _prefs?.remove(key) ?? false;
   }
 
   // 清空所有缓存
-  static Future<void> clear() async {
-    await _prefs?.clear();
+  static Future<bool> clear() async {
+    return await _prefs?.clear() ?? false;
   }
 }
